@@ -1,1 +1,1 @@
-This repository for algo study.
+This repository is for algo study.
