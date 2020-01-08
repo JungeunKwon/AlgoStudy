@@ -21,14 +21,7 @@ public class Sol_2579_BJ {
 			dp[0][i] = Math.max(dp[0][i-2]+arr[i], dp[1][i-2]+arr[i]);
 			dp[1][i] = dp[0][i-1] + arr[i];
 		}
-		for(int i = 0; i < 2 ; i ++)
-		{
-			for(int j = 0; j <= N; j ++)
-			{
-				System.out.print(dp[i][j] + " ");
-			}
-			System.out.println();
-		}
+		
 		System.out.println(Math.max(dp[0][N], dp[1][N]));
 			
 	}
