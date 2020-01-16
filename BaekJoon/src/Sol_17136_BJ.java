@@ -46,32 +46,34 @@ public class Sol_17136_BJ {
 					arr[i][j] = 0;
 					dfs(i,j,papercount+1,one-1,two,three,four,five, onecount-1);
 					arr[i][j] = 1;
-					for(int m = 2; m <6; m ++)
+					bb : for(int m = 2; m <6; m ++)
 					{
 						int k = 0 , l = 0;
-						int stopi = 0, stopj = 0;
+						int stopi = i, stopj = j;
 						boolean flag = false;
-						for(k = i; k < i+ m; k ++)
+						aa : for(k = i; k < i+ m; k ++)
 						{
-							stopi ++;
+							
 							for(l = j; l <j + m; l ++)
 							{
 							
 								if(k >= 10)
 								{
 									stopi = 9;
-									break;
+									flag = true;
+									break aa;
 								}if(l >= 10)
 								{
 									stopj = 9;
-									break;
+									flag = true;
+									break aa;
 								}
 								if(arr[k][l] == 0)
 								{
 									flag = true;
-									stopi = k;
-									stopj = l;
-									break;
+									//stopi = k;
+									//stopj = l;
+									break aa;
 								}else
 								{
 									arr[k][l] = 0;
@@ -79,13 +81,13 @@ public class Sol_17136_BJ {
 									if(onecount <=0)
 									{
 										flag =true;
-										stopi = k;
-										stopj = l;
-										break;
+										//stopi = k;
+									//stopj = l;
+										break aa;
 									}
 								}	stopj++;
 							}
-						
+							stopi ++;
 						}
 						if(flag == false)
 						{
@@ -118,6 +120,7 @@ public class Sol_17136_BJ {
 								onecount++;
 							}
 						}
+						if(flag) break bb;
 					}
 					System.out.println();
 					Thread.sleep(500);
