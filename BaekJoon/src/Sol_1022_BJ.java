@@ -3,8 +3,8 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Sol_1022_BJ {
-	public static int dx [] = {-1,0,1,0};
-	public static int dy [] = {0,1,0,-1};
+	public static int dx [] = {1,0,-1,0};
+	public static int dy [] = {0,-1,0,1};
 	public static void main(String[] args)throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -12,16 +12,21 @@ public class Sol_1022_BJ {
 		int startj = Integer.parseInt(st.nextToken());
 		int endi = Integer.parseInt(st.nextToken());
 		int endj = Integer.parseInt(st.nextToken());
-		int sizei = Math.abs(starti) + Math.abs(endi) + 1 ;
-		int sizej = Math.abs(startj) + Math.abs(endj) + 1;
+		int sizei = endi - starti + 1 ;
+		int sizej = endj - startj + 1;
+		int count = sizei * sizej;
 		int arr[][] = new int [sizei][sizej];
 		//int max = (int)Math.pow(Math.max(sizei, sizej),2);
-		int i = 2; 
-		int tx = 3, ty = 3;
+		int i = 1; 
+		int tx = 0, ty = 0;
 		int togle  = 0;
-		int jump = 0, dir = 0;
-
-		arr[3][3] = 1;
+		int imax = 0;
+		int jump = 1, dir = 0;
+		int gapi = - starti;
+		int gapj = - startj;
+		
+		//System.out.println(gapi  + " " + gapj);
+		
 		aa : while(true)
 		{
 			if(togle == 2)
@@ -35,36 +40,54 @@ public class Sol_1022_BJ {
 			}
 			for(int j = 0; j < jump; j ++, i++)
 			{
+				
+				if(tx >= startj && tx <= endj && ty <=endi && ty>=starti)
+				{
+					int tempi = ty + gapi;
+					int tempj = tx + gapj;
+					arr[tempi][tempj] = i;
+					if(imax < i )
+					{
+						imax = i;
+					}
+					count --;
+					if(count ==0) break aa;
+				}
 				tx = tx + dx[dir];
 				ty = ty + dy[dir];
-				if(tx == sizej && ty == sizei) break aa;
-				if(tx < 0 || ty < 0 || tx >= sizej || ty >=sizei)
-				{
-					continue;
-				}
-				arr[ty][tx] = i;
+				
 			}
 			
 			togle ++;
 			dir ++;
 			
 		}
-		String max = Integer.toString(i);
+		int max = String.valueOf(imax).length();
+
 		for(int j = 0; j < sizei ; j ++)
 		{
-			for(int k = 0; k < sizej; k ++)
+			for(int k = 0; k < sizej; k ++) 
 			{
-				String temp = Integer.toString(arr[j][k]);
-				if(temp.length() < max.length())
-				{
-					for(int l = 0; l < max.length() - temp.length(); l++)
-					{
-						System.out.print(" ");
-					}
-				}
-				System.out.print(arr[j][k] + " ");
-			}System.out.println();
+				System.out.format("%" + max + "d ", arr[j][k]);
+			}
+			System.out.println();
 		}
+		
+//		for(int j = 0; j < sizei ; j ++)
+//		{
+//			for(int k = 0; k < sizej; k ++)
+//			{
+//				String temp = Integer.toString(arr[j][k]);
+//				if(temp.length() < max.length())
+//				{
+//					for(int l = 0; l < max.length() - temp.length(); l++)
+//					{
+//						System.out.print(" ");
+//					}
+//				}
+//				System.out.print(arr[j][k] + " ");
+//			}System.out.println();
+//		}
 	}
 
 
