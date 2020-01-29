@@ -50,18 +50,15 @@ public class Sol_2252_BJ {
 				for(int j = 0; j <innersize; j++)
 				{
 					indegree[conn[t].get(j)] --;
-				
+					if(indegree[conn[t].get(j)] <= 0 && !visited[i])
+					{
+						q.offer(i);
+					}
 				}
 				visited[t] = true;
 				System.out.print(t + " ");
 			}
-			for(int i = 1; i <= N ; i ++)
-			{
-				if(indegree[i] <= 0 && !visited[i])
-				{
-					q.offer(i);
-				}
-			}
+			
 		}
 	}
 
