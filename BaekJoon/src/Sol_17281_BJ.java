@@ -1,113 +1,122 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.io.BufferedReader;
 
 public class Sol_17281_BJ {
-	public static boolean flag[];
-	public static int order[];
-	public static int play;
+	public static int N;
 	public static int player[][];
+	public static boolean flag[];
 	public static int max;
 	public static int ground[];
+	public static int pos;
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		play = Integer.parseInt(br.readLine());
-		player = new int[play][9];
+		N = Integer.parseInt(br.readLine());
+		player = new int[N][9];
+		int order[] = new int[9];
 		flag = new boolean[9];
-		order = new int[9];
-		order[3] = 0;
-		flag[0] = true;
-		max = 0;
-		
-		int pos = 0;
-		for(int i = 0; i <play; i ++)
+		StringTokenizer st;
+		for(int i = 0; i < N; i ++)
 		{
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			for(int j = 0; j <9 ; j ++)
+			st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < 9 ; j ++)
 			{
 				player[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		
-		Perm(order,0);
-		
-		
+		flag[0] = true;
+		order[3] = 0;
+		max = 0;
+		Perm(order, 0);
 		System.out.println(max);
-			
-		
 	}
-
 	private static void Perm(int[] order, int idx) {
-		if(idx >= 9)
+		if(idx==3) {
+			Perm(order,idx+1);
+			return;
+		}
+		if(idx >8)
 		{
-			int pos = 0;
-			int point = 0;
-			for(int t = 0; t < play; t++)
-			{	
-				ground = new int[4]; 
-				point += baseball(t,pos);
+			pos = 0;
+			int score = 0;
+			for(int t = 0; t < N ; t ++)
+			{
+				ground = new int[3];
+				score += play(t, order);
+			
 			}
-			if(max < point) max = point;
+			if(max < score) max =score;
 			return;
 		}
 		for(int i = 1 ; i < 9 ; i ++)
 		{
 			if(flag[i])continue;
+			flag[i] = true;
+			order[idx] = i;
 			
-			if(idx != 3)
-			{
-				order[idx] = i;
-				flag[i] = true;
-			}
 			Perm(order, idx+1);
 			flag[i] = false;
+		
 		}
+		
 	}
-
-	private static int baseball(int t, int pos) {
-		int point = 0;
-		int out =0;
+	private static int play(int t, int[] order) {
+		int score = 0;
+		int out = 0 ;
 		while(out < 3)
 		{
-			if(pos == 9)
-			{
-				pos = 0;
-			}
-			int i =0;
-			switch(player[t][order[pos]])
+			if(pos == 9) pos = 0;
+			int nowplay = order[pos];
+			int playerresult = player[t][nowplay];
+			int i = 0;
+			aa : switch(playerresult)
 			{
 			case 0:
-				out ++;
-				break;
+				out++;
+				break aa;
 			case 1:
 				i = 1;
-				break;
+				if(ground[2] == 1) score++;
+				ground[2] = ground[1];
+				ground[1] = ground[0];
+				ground[0] = 1;
+				break aa;
 			case 2:
 				i = 2;
-				break;
+				for(int j = 1; j <3; j ++)
+				{
+					if(ground[j] == 1) score++;
+					ground[j] = 0;
+				}
+				ground[2] = ground[0];
+				ground[1] = 1;
+				ground[0] = 0;
+				break aa;
 			case 3:
 				i = 3;
-				break;
-			case 4:
-				i = 4;
-				break;
-			}
-			if(i != 0)
-			{
-				for(int j = 0; j < i ; j ++)
+				for(int j = 0; j <3; j ++)
 				{
-					if(ground[3] != 0) point ++;
-					for(int k = 3; k >0 ; k --)
-					{
-						ground[k] = ground[k-1];
-					}
-					if(j == 0) ground[0]++;
+					if(ground[j] == 1) score++;
+					ground[j] = 0;
 				}
+				ground[2] = 1;
+				ground[1] = 0;
+				ground[0] = 0;
+				break aa;
+			case 4:
+				 i =4;
+				 for(int j = 0 ; j < 3; j ++)
+				 {
+					 if(ground[j] == 1) score++;
+					 ground[j] = 0;
+				 }
+				 score++;
+				break aa;
 			}
+			
 			pos ++;
 		}
-		return point;
+		return score;
 	}
 
 }
