@@ -1,30 +1,35 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Sol_12100_BJ {
 	public static int N;
 	public static int arr[][];
 	public static int move[];
 	public static int dx[] = {-1,0,1,0};
 	public static int dy[] = {0,-1,0,1};
 	public static int max;
+	public static LinkedList<Integer> list ;
 	public static void main(String[] args)throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
 		arr  = new int[N][N];
 		move = new int[5];
 		StringTokenizer st;
+		 list = new LinkedList<>();
+		 max= 0;
 		for(int i = 0; i < N; i ++)
 		{
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < N; j ++)
 			{
 				arr[i][j] = Integer.parseInt(st.nextToken());
+				if(arr[i][j] > max) max = arr[i][j];
 			}
 		}
-		max = 0;
+		
 		findmove(0);
 		System.out.println(max);
 	}
@@ -67,175 +72,142 @@ public class Main {
 			{
 				down(temp);
 			}
+			
 		}
 		
 
 	}
 	private static void down(int[][] temp) {
-		for(int i =0; i <N; i ++)
-		{
-			int pos = N-1;
-			for(int j = pos-1; j >=0 ; j--)
-			{
-				if(temp[j][i] == 0) continue;
-				else {
-					if(temp[pos][i] == temp[j][i])
-					{
-						temp[pos][i] = temp[pos][i] * 2;
-						if(temp[pos][i] > max) max = temp[pos][i] ;
-						temp[j][i] = 0;
-						pos--;
-					}else if(temp[pos][i] ==0)
-					{
-						temp[pos][i] = temp[j][i];
-						temp[j][i] = 0;
-						pos--;
-					}else
-					{
-						boolean flag = false;
-						for(int k = pos; k >= j; k--)
-						{
-							if(temp[k][i] == 0)
-							{
-								temp[k][i] = temp[j][i];
-								temp[j][i] = 0;
-								pos = k;
-								flag = true;
-								break;
-							}
-						}
-						if(!flag) pos = j;
-					}
-						
-				}
-			}
-		}
+		  for(int j = 0; j < N ; j++)
+          {
+              list.clear();
+              for(int i = N - 1; i >= 0; i--)
+              {   
+                  if(temp[i][j] == 0)continue;
+                  if(i != 0 && temp[i - 1][j] == 0)
+                  {
+                	  temp[i-1][j] = temp[i][j];
+                      continue;
+                  }
+                  if(i != 0 && temp[i][j] == temp[i-1][j])
+                  {
+                      list.addLast(temp[i][j] * 2);
+                      if(max < temp[i][j] * 2)max = temp[i][j] * 2;
+                      i--;
+                  }else
+                  {
+                      list.addLast(temp[i][j]);
+                  }
+              }
+              for(int i = N - 1; i >= 0 ; i --)
+              {
+                  if(!list.isEmpty())
+                  {
+                	  temp[i][j] = list.getFirst();
+                      list.removeFirst();
+                  }else
+                	  temp[i][j] = 0;
+              }
+          }
 	}
 	private static void right(int[][] temp) {
-		for(int i =0; i <N; i ++)
-		{
-			int pos = N-1;
-			for(int j = pos-1; j >=0 ; j--)
-			{
-				if(temp[i][j] == 0) continue;
-				else {
-					if(temp[i][pos] == temp[i][j])
-					{
-						temp[i][pos] = temp[i][pos] * 2;
-						if(temp[i][pos] > max) max = temp[i][pos] ;
-						temp[i][j] = 0;
-						pos--;
-					}else if(temp[i][pos] ==0)
-					{
-						temp[i][pos] = temp[i][j];
-						temp[i][j] = 0;
-						pos--;
-					}else
-					{
-						boolean flag = false;
-						for(int k = pos; k >= j; k--)
-						{
-							if(temp[i][k] == 0)
-							{
-								temp[i][k] = temp[i][j];
-								temp[i][j] = 0;
-								pos = k;
-								flag = true;
-								break;
-							}
-						}
-						if(!flag) pos = j;
-					}
-						
-				}
-			}
-			
-		}
+		 for(int i = 0; i< N ; i++)
+         {
+             list.clear();
+             for(int j = N -1 ; j >= 0; j --)
+             {
+                 if(temp[i][j] == 0)continue;
+                 if(j != 0 && temp[i][j - 1] == 0)
+                 {
+                	 temp[i][j-1] = temp[i][j];
+                     continue;
+                 }
+                 if(j != 0 && temp[i][j] == temp[i][j - 1])
+                 {
+                     list.addLast(temp[i][j] * 2);
+                     if(max < temp[i][j] * 2)max = temp[i][j] * 2;
+
+                     j--;
+                 }else
+                     list.addLast(temp[i][j]);
+             }
+             for(int j = N -1 ; j >= 0; j --)
+             {
+                 if(!list.isEmpty())
+                 {
+                	 temp[i][j] = list.getFirst();
+                     list.removeFirst();
+                 }else
+                	 temp[i][j] = 0;
+             }
+         }
+          
 	}
 	private static void up(int[][] temp) {
+		  for(int j = 0; j < N ; j++)
+          {
+              list.clear();
+              for(int i = 0; i < N; i++)
+              {   
+                  if(temp[i][j] == 0)continue;
+                  if(i != N -1 &&temp[i + 1][j] == 0)
+                  {
+                	  temp[i+1][j] = temp[i][j];
+                      continue;
+                  }
+                  if(i != N -1 && temp[i][j] == temp[i+1][j])
+                  {
+                      list.addLast(temp[i][j] * 2);
+                      if(max < temp[i][j] * 2)max = temp[i][j] * 2;
 
-		for(int i =0; i < N ; i ++)
-		{
-			int pos = 0;
-			for(int j = pos+1; j < N ; j ++)
-			{
-				if(temp[j][i] == 0) continue;
-				else {
-					if(temp[pos][i] == temp[j][i])
-					{
-						temp[pos][i] = temp[pos][i] * 2;
-						if(temp[pos][i] > max) max = temp[pos][i];
-						temp[j][i] = 0;
-						pos++;
-					}else if(temp[pos][i] ==0)
-					{
-						temp[pos][i] = temp[j][i];
-						temp[j][i] = 0;
-						pos++;
-					}else
-					{
-						boolean flag = false;
-						for(int k = pos; k < j; k++)
-						{
-							if(temp[k][i] == 0)
-							{
-								temp[k][i] = temp[j][i];
-								temp[j][i] = 0;
-								pos = k;
-								flag = true;
-								break;
-							}
-						}
-						if(!flag) pos = j;
-					}
-						
-				}
-			}
-			
-		}
+                      i++;
+                  }else
+                  {
+                      list.addLast(temp[i][j]);
+                  }
+              }
+              for(int i = 0; i < N ; i ++)
+              {
+                  if(!list.isEmpty())
+                  {
+                	  temp[i][j] = list.getFirst();
+                      list.removeFirst();
+                  }else
+                	  temp[i][j] = 0;
+              }
+          }
 	}
 	private static void left(int[][] temp) {
-		
-		for(int i =0; i < N ; i ++)
-		{
-			int pos = 0;
-			for(int j = pos+1; j < N ; j ++)
-			{
-				if(temp[i][j] == 0) continue;
-				else {
-					if(temp[i][pos] == temp[i][j])
-					{
-						temp[i][pos] = temp[i][pos] * 2;
-						if(temp[i][pos] > max) max = temp[i][pos] ;
-						temp[i][j] = 0;
-						pos++;
-					}else if(temp[i][pos] ==0)
-					{
-						temp[i][pos] = temp[i][j];
-						temp[i][j] = 0;
-						pos++;
-					}else
-					{
-						boolean flag = false;
-						for(int k = pos; k < j; k++)
-						{
-							if(temp[i][k] == 0)
-							{
-								temp[i][k] = temp[i][j];
-								temp[i][j] = 0;
-								pos = k;
-								flag = true;
-								break;
-							}
-						}
-						if(!flag) pos = j;
-					}
-						
-				}
-			}
-			
-		}
-		
+		 for(int i = 0; i< N ; i++)
+         {
+             list.clear();
+             for(int j = 0 ; j < N ; j++)
+             {
+                 if(temp[i][j] == 0)continue;
+                 if(j != N - 1 &&temp[i][j + 1] == 0)
+                 {
+                	 temp[i][j+1] = temp[i][j];
+                     continue;
+                 }
+                 if(j != N - 1 && temp[i][j] == temp[i][j +1])
+                 {
+                     list.addLast(temp[i][j]*2);
+                     if(max < temp[i][j] * 2)max = temp[i][j] * 2;
+
+                     j++;
+                 }else
+                     list.addLast(temp[i][j]);
+             }
+             for(int j = 0 ; j < N ; j++)
+             {
+                 if(!list.isEmpty())
+                 {
+                	 temp[i][j] = list.getFirst();
+                     list.removeFirst();
+                 }else
+                	 temp[i][j] = 0;
+             }
+         }
 	}
 	public static int opposite(int pos)
 	{

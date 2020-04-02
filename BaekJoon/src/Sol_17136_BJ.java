@@ -7,134 +7,93 @@ public class Sol_17136_BJ {
 	public static boolean visited[][];
 	public static int N;
 	public static int min;
+	public static int paper[];
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		//N = Integer.parseInt(br.readLine());
-		arr = new int[10][10];
-		visited = new boolean[10][10];
-		StringTokenizer st ;
-		int onecount = 0;
-		for(int i = 0 ; i < 10; i ++)
-		{
+		N = 10;
+		arr = new int[N][N];
+		visited = new boolean[N][N];
+		StringTokenizer st;
+		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
-			for(int j = 0; j < 10; j ++)
-			{
+			for (int j = 0; j < N; j++) {
 				arr[i][j] = Integer.parseInt(st.nextToken());
-				if(arr[i][j] == 1) onecount++;
 			}
 		}
-		min = Integer.MAX_VALUE;
-		System.out.println(onecount);
-		dfs(0,0,0,5,5,5,5,5, onecount);
+		paper = new int[6];
+		for(int i = 0; i < 5; i ++)
+		{
+			paper[i] = 5;
+		}
+			min = -1;
+		paste(0, 0,paper, 0);
 		System.out.println(min);
 	}
-	private static void dfs(int posi, int posj,int papercount, int one, int two, int three, int four, int five,int onecount) throws InterruptedException {
-		if(papercount > min) return;
-		
-		if(one < 0 || two < 0 || three < 0 || four < 0 || five < 0)return;
-		if(onecount == 0)
+
+	private static void paste(int nexti, int nextj, int paper[], int count) {
+		for(int i = 0; i < 5; i ++)
 		{
-			if(papercount < min) min =papercount;
+			if(paper[i] < 0)
+				return;
+		}
+		if (nextj == 10) {
+			nextj = 0;
+			nexti++;
+		}
+		if (nexti == 10) {
+			if (min != -1) {
+				if (min > count)
+					min = count;
+			} else {
+				min = count;
+			}
 			return;
 		}
-		for(int i = posi ; i < 10 ; i ++)
-		{
-			for(int j = 0; j < 10; j ++)
+		if (arr[nexti][nextj] != 1) {
+			paste(nexti, nextj + 1, paper, count);
+			return;
+		}
+
+		for (int i = 0; i < 5; i++) {
+			boolean flag = true;
+			for(int k = nexti; k <= nexti+i; k ++)
 			{
-				if(arr[i][j] == 1)
+				for(int l = nextj ; l <=nextj+i; l ++)
 				{
-					arr[i][j] = 0;
-					dfs(i,j,papercount+1,one-1,two,three,four,five, onecount-1);
-					arr[i][j] = 1;
-					bb : for(int m = 2; m <6; m ++)
+					if(k >= N || l >= N) 
 					{
-						int k = 0 , l = 0;
-						int stopi = i, stopj = j;
-						boolean flag = false;
-						aa : for(k = i; k < i+ m; k ++)
-						{
-							
-							for(l = j; l <j + m; l ++)
-							{
-							
-								if(k >= 10)
-								{
-									stopi = 9;
-									flag = true;
-									break aa;
-								}if(l >= 10)
-								{
-									stopj = 9;
-									flag = true;
-									break aa;
-								}
-								if(arr[k][l] == 0)
-								{
-									flag = true;
-									//stopi = k;
-									//stopj = l;
-									break aa;
-								}else
-								{
-									arr[k][l] = 0;
-									onecount--;
-									if(onecount <=0)
-									{
-										flag =true;
-										//stopi = k;
-									//stopj = l;
-										break aa;
-									}
-								}	stopj++;
-							}
-							stopi ++;
-						}
-						if(flag == false)
-						{
-							if(m == 2)
-							{
-								dfs(k,l,papercount + 1,one,two-1,three,four,five,onecount );
-							}else if(m ==3)
-							{
-								dfs(k,l,papercount + 1,one,two,three-1,four,five,onecount );
-
-							}
-							else if(m ==4)
-							{
-								dfs(k,l,papercount + 1,one,two,three,four-1,five,onecount );
-
-							}
-							else if(m ==5)
-							{
-								dfs(k,l,papercount + 1,one,two,three,four,five-1,onecount );
-
-							}								
-						}
-						System.out.println(k + " " + l + " " + i + " " + j);
-						for(int q = stopi ; q >= i ; q--)
-						{
-							for(int w = stopj; w >=j; w --)
-							{
-								System.out.println(q + " " + w + " " + j);
-								arr[q][w] = 1;
-								onecount++;
-							}
-						}
-						if(flag) break bb;
+						flag = false;
+						continue;
 					}
-					System.out.println();
-					Thread.sleep(500);
-					for(int e = 0; e < 10; e++)
+					if(arr[k][l] == 0)
 					{
-						for(int r = 0; r < 10; r++)
-						{
-							System.out.print(arr[e][r] + " ");
-						}System.out.println();
+						flag = false;
 					}
 				}
 			}
+			if(flag)
+			{
+				for(int k = nexti; k <= nexti+i; k ++)
+				{
+					for(int l = nextj ; l <=nextj+i; l ++)
+					{
+						arr[k][l] = 0;
+					}
+				}
+				paper[i] --;
+				paste(nexti, nextj+1, paper, count+1 );
+				paper[i] ++;
+				for(int k = nexti + i; k >= nexti; k --)
+				{
+					for(int l = nextj+i ; l >=nextj; l --)
+					{
+						arr[k][l] = 1;
+					}
+				}
+			}
+			
+			
 		}
-	
 	}
 
 }
