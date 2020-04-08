@@ -73,19 +73,14 @@ public class Sol_13460_BJ_2 {
 			// 0 À§ 1 ¿Ş 2 ¾Æ·¡ 3 ¿À¸¥
 			while (true) {
 			
-				// System.out.println("++++++R " + R.i + " " + R.j);
 				Rednum = moving(dir, temparr, R);
-				// System.out.println("------R " + R.i + " " + R.j);
-				// System.out.println("+++++B " + B.i + " " + B.j);
 				Bluenum = moving(dir, temparr, B);
-				// System.out.println("-----B " + B.i + " " + B.j);
 
 				if (Bluenum == 3) {
 					return;
 				}
 				if (Rednum == 3) {
 					if (min == -1 || min > i + 1) {
-
 						min = i + 1;
 					}
 
