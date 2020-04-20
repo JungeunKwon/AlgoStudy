@@ -26,7 +26,7 @@ public class Sol_16434_BJ {
 				{
 					h -= Hatk;
 					if(h <=0)break;
-					if(potion > 0)
+					if(potion != 0)
 					{
 						if(potion - a >= 0)
 						{
@@ -45,8 +45,16 @@ public class Sol_16434_BJ {
 				
 			}else
 			{
+				if(potion+h >= calhp)
+				{
+					
+					potion = calhp;
+				}else
+				{
+					
+					potion += h;
+				}
 				Hatk += a;
-				potion += h;
 			}
 		}
 		System.out.println(calhp);
