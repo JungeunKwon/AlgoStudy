@@ -137,6 +137,7 @@ public class Sol_2382_SW {
 		int j;
 		int dir;
 
+		
 		Info(int i, int j) {
 			this.i = i;
 			this.j = j;
