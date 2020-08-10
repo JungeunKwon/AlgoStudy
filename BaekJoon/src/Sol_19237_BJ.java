@@ -44,7 +44,7 @@ public class Sol_19237_BJ {
 
 		}
 		int time = 0;
-		while (time < 1000) {
+		while (time < 1001) {
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					arr[i][j].smell--;
@@ -61,41 +61,43 @@ public class Sol_19237_BJ {
 
 				sharkcount++;
 				int ty = 0, tx = 0;
+			
+			
+					int sharkdir = sharks[i].dir;
+					for (int j = 1; j <= 4; j++) {
+						int prioritypos = sharks[i].posPriority[sharkdir][j];
+						ty = sharks[i].i + dy[prioritypos];
+						tx = sharks[i].j + dx[prioritypos];
+						if (ty < 0 || tx < 0 || ty >= N || tx >= N)
+							continue;
 
-				int sharkdir = sharks[i].dir;
-				for (int j = 1; j <= 4; j++) {
-					int prioritypos = sharks[i].posPriority[sharkdir][j];
-					ty = sharks[i].i + dy[prioritypos];
-					tx = sharks[i].j + dx[prioritypos];
-					if (ty < 0 || tx < 0 || ty >= N || tx >= N)
-						continue;
+						if (arr[ty][tx].smell < 0) {
 
-					if (arr[ty][tx].smell < 0) {
-						sharks[i].i = ty;
-						sharks[i].j = tx;
-						sharks[i].dir = prioritypos;
-						continue aa;
+							sharks[i].i = ty;
+							sharks[i].j = tx;
+							sharks[i].dir = prioritypos;
+							continue aa;
+						} 
 					}
-				}
+				
+					sharkdir = sharks[i].dir;
+					for (int j = 1; j <= 4; j++) {
+						int prioritypos = sharks[i].posPriority[sharkdir][j];
+						ty = sharks[i].i + dy[prioritypos];
+						tx = sharks[i].j + dx[prioritypos];
+						if (ty < 0 || tx < 0 || ty >= N || tx >= N)
+							continue;
 
-				sharkdir = sharks[i].dir;
-				for (int j = 1; j <= 4; j++) {
-					int prioritypos = sharks[i].posPriority[sharkdir][j];
-					ty = sharks[i].i + dy[prioritypos];
-					tx = sharks[i].j + dx[prioritypos];
-					if (ty < 0 || tx < 0 || ty >= N || tx >= N)
-						continue;
+						if (arr[ty][tx].sharknum == i && arr[ty][tx].smell >= 0) {
 
-					if (arr[ty][tx].sharknum == i && arr[ty][tx].smell >= 0) {
+							sharks[i].i = ty;
+							sharks[i].j = tx;
+							sharks[i].dir = prioritypos;
+							continue aa;
 
-						sharks[i].i = ty;
-						sharks[i].j = tx;
-						sharks[i].dir = prioritypos;
-						continue aa;
-
+						}
 					}
-				}
-
+			
 			} // 상어들 이동
 			for (int i = M; i > 0; i--) {
 				if (!sharks[i].isAlive)
@@ -108,7 +110,7 @@ public class Sol_19237_BJ {
 				break;
 			time++;
 		}
-		if (time >= 1000) {
+		if (time >= 1001) {
 			System.out.println(-1);
 		} else
 			System.out.println(time);
