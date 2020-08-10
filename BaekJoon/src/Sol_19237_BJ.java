@@ -60,53 +60,42 @@ public class Sol_19237_BJ {
 				}
 
 				sharkcount++;
-				int empty = 0, possible = 0, ty = 0, tx = 0;
+				int ty = 0, tx = 0;
+
+				int sharkdir = sharks[i].dir;
 				for (int j = 1; j <= 4; j++) {
-					ty = sharks[i].i + dy[j];
-					tx = sharks[i].j + dx[j];
+					int prioritypos = sharks[i].posPriority[sharkdir][j];
+					ty = sharks[i].i + dy[prioritypos];
+					tx = sharks[i].j + dx[prioritypos];
 					if (ty < 0 || tx < 0 || ty >= N || tx >= N)
 						continue;
-					if (arr[ty][tx].smell < 0)
-						empty++;
-					if (arr[ty][tx].sharknum == i && arr[ty][tx].smell >= 0)
-						possible++;
-				}
-				if (empty > 0) {
-					int sharkdir = sharks[i].dir;
-					for (int j = 1; j <= 4; j++) {
-						int prioritypos = sharks[i].posPriority[sharkdir][j];
-						ty = sharks[i].i + dy[prioritypos];
-						tx = sharks[i].j + dx[prioritypos];
-						if (ty < 0 || tx < 0 || ty >= N || tx >= N)
-							continue;
 
-						if (arr[ty][tx].smell < 0) {
-
-							sharks[i].i = ty;
-							sharks[i].j = tx;
-							sharks[i].dir = prioritypos;
-							continue aa;
-						} 
-					}
-				} else if (possible > 0) {
-					int sharkdir = sharks[i].dir;
-					for (int j = 1; j <= 4; j++) {
-						int prioritypos = sharks[i].posPriority[sharkdir][j];
-						ty = sharks[i].i + dy[prioritypos];
-						tx = sharks[i].j + dx[prioritypos];
-						if (ty < 0 || tx < 0 || ty >= N || tx >= N)
-							continue;
-
-						if (arr[ty][tx].sharknum == i && arr[ty][tx].smell >= 0) {
-
-							sharks[i].i = ty;
-							sharks[i].j = tx;
-							sharks[i].dir = prioritypos;
-							continue aa;
-
-						}
+					if (arr[ty][tx].smell < 0) {
+						sharks[i].i = ty;
+						sharks[i].j = tx;
+						sharks[i].dir = prioritypos;
+						continue aa;
 					}
 				}
+
+				sharkdir = sharks[i].dir;
+				for (int j = 1; j <= 4; j++) {
+					int prioritypos = sharks[i].posPriority[sharkdir][j];
+					ty = sharks[i].i + dy[prioritypos];
+					tx = sharks[i].j + dx[prioritypos];
+					if (ty < 0 || tx < 0 || ty >= N || tx >= N)
+						continue;
+
+					if (arr[ty][tx].sharknum == i && arr[ty][tx].smell >= 0) {
+
+						sharks[i].i = ty;
+						sharks[i].j = tx;
+						sharks[i].dir = prioritypos;
+						continue aa;
+
+					}
+				}
+
 			} // 상어들 이동
 			for (int i = M; i > 0; i--) {
 				if (!sharks[i].isAlive)
