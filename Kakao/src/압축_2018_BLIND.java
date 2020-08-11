@@ -35,10 +35,6 @@ public class ¾ÐÃà_2018_BLIND {
 					if(j >= msg.length())
 					{
 						list.add(findkey);
-						int gap = j - i;
-						if (gap > 2) {
-							i = i + gap - 2;
-						}
 						break aa;
 					}
 					continue;
