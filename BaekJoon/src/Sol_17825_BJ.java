@@ -75,9 +75,7 @@ public class Sol_17825_BJ {
 				yut[yutnum].num = pos;
 				yut[yutnum].list.add(pos);
 				score += pan[pos];
-
 			}
-			
 			if (max < score)
 			{
 				max = score;
