@@ -34,7 +34,7 @@ public class Sol_17825_BJ {
 		if (idx >= N) {
 			Yut[] yut = new Yut[4];
 			for (int i = 0; i < 4; i++) {
-				yut[i] = new Yut(0, false, new ArrayList<>());
+				yut[i] = new Yut(0, false);
 			}
 			int score = 0;
 			aa : for (int i = 0; i < yutarr.length; i++) {
@@ -73,7 +73,6 @@ public class Sol_17825_BJ {
 						return;
 				}
 				yut[yutnum].num = pos;
-				yut[yutnum].list.add(pos);
 				score += pan[pos];
 			}
 			if (max < score)
@@ -93,16 +92,12 @@ public class Sol_17825_BJ {
 	public static class Yut {
 		int num;
 		boolean isFinish;
-		List<Integer> list;
-		Yut(int num, boolean isFinish, List<Integer> list) {
+		Yut(int num, boolean isFinish) {
 			this.num = num;
 			this.isFinish = isFinish;
-			this.list = list;
+	
 		}
-		@Override
-		public String toString() {
-			return "Yut [num=" + num + ", isFinish=" + isFinish + ", list=" + list + "]";
-		}
+		
 		
 	}
 
