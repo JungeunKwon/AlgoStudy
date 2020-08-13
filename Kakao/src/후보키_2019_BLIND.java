@@ -71,7 +71,6 @@ public class ÈÄº¸Å°_2019_BLIND {
 			HashSet<String> hash = new HashSet<>();
 			for (int i = 0; i < N; i++) {
 				String temp = "";
-				
 				for (int j = 0; j < list.size(); j++) {
 					temp = temp + relation[i][list.get(j)];
 				
