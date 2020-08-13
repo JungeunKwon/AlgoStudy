@@ -67,7 +67,7 @@ public class Sol_2933_BJ {
 
 					if (min != 1) {
 						
-						move(arr, i, j, numarr);
+						move(arr, numarr);
 						continue aa;
 					}
 				}
@@ -84,7 +84,7 @@ public class Sol_2933_BJ {
 		System.out.println(sb.toString());
 	}
 
-	private static void move(char[][] arr2, int posi, int posj, int[][] temp) {
+	private static void move(char[][] arr2, int[][] temp) {
 		int min = R;
 		 for (int i = 0; i < C; i++) {
 			 aa:for (int j = R - 2; j >= 0; j--) {
@@ -98,7 +98,6 @@ public class Sol_2933_BJ {
 						}
 						if(temp[ty][i] == 1)
 						{
-							ty = ty-1;
 							continue aa;
 						}
 						if (arr2[ty][i] == 'x') {
