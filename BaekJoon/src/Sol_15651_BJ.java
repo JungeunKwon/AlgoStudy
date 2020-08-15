@@ -31,10 +31,6 @@ public class Sol_15651_BJ {
 		{
 			
 			arr[idx] = j;
-			if(idx>0)
-			{
-				if(arr[idx - 1] > arr[idx])continue; 
-			}
 			Combi(n, m, idx + 1, flag, arr);
 
 		}
