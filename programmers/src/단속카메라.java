@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class �ܼ�ī�޶� {
+public class 단속카메라{
 
 	public static void main(String[] args) {
 		int routes[][] = {{-20,15},{-14,-5},{-18,-13},{-5,-3}};
