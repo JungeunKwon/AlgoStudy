@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class ¼¶¿¬°áÇÏ±â {
+public class ì„¬ì—°ê²°í•˜ê¸° {
 
 	public static void main(String[] args) {
 		int n = 4;
