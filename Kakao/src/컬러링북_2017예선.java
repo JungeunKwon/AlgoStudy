@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
-public class ÄÃ·¯¸µºÏ_2017¿¹¼± {
+public class  ì»¬ëŸ¬ë§ë¶_2017ì˜ˆì„  {
 	static class Solution {
 	  public static boolean visited[][];
 	  public static int max;
