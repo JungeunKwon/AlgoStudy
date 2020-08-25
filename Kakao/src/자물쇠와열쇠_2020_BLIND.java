@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class ÀÚ¹°¼è¿Í¿­¼è_2020_BLIND {
+public class ìë¬¼ì‡ ì™€ì—´ì‡ _2020_BLIND {
 
 	public static void main(String[] args) {
 		int key[][] = { { 0, 0, 0 }, { 1, 0, 0 }, { 0, 1, 1 } };
