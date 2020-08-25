@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class º£½ºÆ®¾Ù¹ü {
+public class ë² ìŠ¤íŠ¸ì•¨ë²” {
 
 	public static void main(String[] args) throws Exception {
 		String genres[] = {"classic", "pop", "classic", "classic", "pop"};
