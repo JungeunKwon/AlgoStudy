@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class ¾ÐÃà_2018_BLIND {
+public class ì••ì¶•_2018_BLIND {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
