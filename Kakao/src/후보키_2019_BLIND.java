@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class �ĺ�Ű_2019_BLIND {
+public class 후보키_2019_BLIND {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
