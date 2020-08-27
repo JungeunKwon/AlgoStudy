@@ -7,7 +7,9 @@ public class 파일명정렬_2018_BLIND {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String files[] = { "F15", "F-15", "foo010bar020.zip", "img1.png", "IMG01.GIF", "img2.JPG" };
+		String files[] = { "F1512344", "F1512345", "F-15", "foo010bar020.zip", "img10.png", "img011.png", "IMG01.GIF",
+				"img2.JPG" };
+
 		String result[] = solution(files);
 		System.out.println(Arrays.toString(result));
 	}
@@ -17,39 +19,41 @@ public class 파일명정렬_2018_BLIND {
 		List<Info> list = new ArrayList<>();
 		for (int i = 0; i < files.length; i++) {
 			String line = files[i];
-			boolean ischar = true;
-			boolean getnum = false;
+			boolean header = false;
 			int start = 0;
 			String[] units = new String[3];
 			int cnt = 0;
 			int numbercnt = 0;
 			for (int j = 1; j < line.length(); j++) {
 				char c = line.charAt(j);
-				if (!Character.isDigit(c) && ischar || Character.isDigit(c) && getnum) {
-
-				} else if (Character.isDigit(c) && ischar && !getnum) {
-					ischar = false;
-					units[cnt] = line.substring(start, j);
-					start =j;
+				if (Character.isDigit(c)) {
+					if (!header) {
+						units[cnt] = line.substring(start, j);
+						cnt++;
+						start = j;
+					}
+					header = true;
 					numbercnt++;
-					cnt++;
-				} else if (Character.isDigit(c) && !ischar && numbercnt < 5) {
-					numbercnt++;
-				} else if (Character.isDigit(c) && !ischar || numbercnt >= 5) {
-					getnum = true;
-					ischar = true;
-					units[cnt] = line.substring(start, j);
-					start = j;
-					cnt++;
-				} else if (!Character.isDigit(c) && !ischar) {
-					getnum = true;
-					ischar = true;
-					units[cnt] = line.substring(start, j);
-					start = j;
-					cnt++;
+					if (numbercnt > 5) {
+						units[cnt] = line.substring(start, j);
+						cnt++;
+						start = j;
+						break;
+					}
+				} else {
+					if (header) {
+						units[cnt] = line.substring(start, j);
+						start = j;
+						cnt++;
+						break;
+					}
 				}
 			}
-			units[cnt] = line.substring(start, line.length());
+			if (units[1] == null) {
+				units[1] = line.substring(start, line.length());
+			} else {
+				units[cnt] = line.substring(start, line.length());
+			}
 			list.add(new Info(units[0], units[1], units[2] == null ? "" : units[2]));
 		}
 		Collections.sort(list);
