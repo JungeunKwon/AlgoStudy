@@ -45,6 +45,7 @@ public class 셔틀버스_2018_BLIND {
 						mm--;
 					if (max < hh * 100 + mm)
 						max = hh * 100 + mm;
+					break;
 				}
 			}
 			if (last > 0) {
