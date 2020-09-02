@@ -33,12 +33,7 @@ public class 외벽점검_2020_BLIND {
 			boolean visited[] = new boolean[weak.length];
 			int cnt = 0;
 			int shift[] = Arrays.copyOf(weak, weak.length);
-			for (int i = 0; i < weak.length; i++) {
-				int t = shift[weak.length - 1];
-				for (int j = weak.length - 1; j > 0; j--) {
-					shift[j] = shift[j - 1];
-				}
-				shift[0] = t;
+			for (int i = 0; i < weak.length - 1; i++) {
 				cnt = 0;
 				visited = new boolean[weak.length];
 				bb: for (int j = 0; j < dist.length; j++) {
@@ -71,11 +66,19 @@ public class 외벽점검_2020_BLIND {
 					else
 						break bb;
 
+					if (cnt > count)
+						continue;
+
 				}
 
 				if (check(visited) && cnt != 0 && count > cnt) {
 					count = cnt;
 				}
+				int t = shift[weak.length - 1];
+				for (int j = weak.length - 1; j > 0; j--) {
+					shift[j] = shift[j - 1];
+				}
+				shift[0] = t;
 
 			}
 
