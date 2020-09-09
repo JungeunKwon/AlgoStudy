@@ -15,7 +15,7 @@ public class Sol_15684_BJ {
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		H = Integer.parseInt(st.nextToken());
-		arr = new boolean[H + 2][N + 2];
+		arr = new boolean[H + 1][N + 1];
 		for (int i = 0; i < M; i++) {
 			st = new StringTokenizer(br.readLine());
 			int h = Integer.parseInt(st.nextToken());
@@ -25,7 +25,7 @@ public class Sol_15684_BJ {
 		int answer = -1;
 		flag = false;
 		for (int i = 0; i <= 3; i++) {
-			dfs(i, 0);
+			dfs(i, 0, 1, 1);
 			if (flag) {
 				answer = i;
 				break;
@@ -34,28 +34,26 @@ public class Sol_15684_BJ {
 		System.out.println(answer);
 	}
 
-	private static void dfs(int max, int idx) {
+	private static void dfs(int max, int idx, int ti, int tj) throws InterruptedException {
 		if (flag)
 			return;
 		if (idx >= max) {
-
-			if (check(arr))
-				flag = true;
+			check(arr);
 			return;
 		}
-
-		for (int i = 1; i <= H; i++) {
-			for (int j = 1; j <= N; j++) {
+		for (int i = ti; i <= H; i++) {
+			for (int j = tj; j < N; j++) {
 				if (arr[i][j - 1] || arr[i][j] || arr[i][j + 1])
 					continue;
 				arr[i][j] = true;
-				dfs(max, idx + 1);
+				dfs(max, idx + 1, i, j + 1);
 				arr[i][j] = false;
 			}
+			tj = 1;
 		}
 	}
 
-	public static boolean check(boolean[][] arr) {
+	public static void check(boolean[][] arr) {
 		for (int a = 1; a <= N; a++) {
 			int i = 1;
 			int j = a;
@@ -71,9 +69,9 @@ public class Sol_15684_BJ {
 				}
 			}
 			if (j != a)
-				return false;
+				return;
 		}
+		flag = true;
 
-		return true;
 	}
 }
