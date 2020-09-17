@@ -58,13 +58,13 @@ public class Sol_5650_SW {
 			tx = temp.j + dx[temp.dir];
 			ty = temp.i + dy[temp.dir];
 			if (tx < 0 || ty < 0 || tx >= N || ty >= N || arr[ty][tx] == 5) {
-				
+
 				tx = tx - dx[temp.dir];
 				ty = ty - dy[temp.dir];
 				temp.dir = opposite(temp.dir);
 				temp.point++;
 
-				//continue;
+				// continue;
 			}
 			if ((tx == j && ty == i) || arr[ty][tx] == -1) {
 				if (max < temp.point)
@@ -117,12 +117,12 @@ public class Sol_5650_SW {
 				temp.j = tx;
 				continue;
 			}
-			
+
 			temp.i = ty;
 			temp.j = tx;
 			tx = tx - dx[temp.dir];
 			ty = ty - dy[temp.dir];
-			
+
 			temp.dir = opposite(temp.dir);
 			temp.point++;
 		}
