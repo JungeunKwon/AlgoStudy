@@ -8,7 +8,7 @@ public class Sol_15684_BJ_2 {
 	public static int M;
 	public static boolean arr[][];
 	public static boolean flag;
-
+ 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
