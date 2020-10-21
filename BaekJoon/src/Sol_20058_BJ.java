@@ -26,12 +26,12 @@ public class Sol_20058_BJ {
 		int maxsize = 0;
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < Q; i++) {
-			int level =Integer.parseInt(st.nextToken());
-			for(int j = 1 ; j <= level; j ++) {
+			int level = Integer.parseInt(st.nextToken());
+			for (int j = 1; j <= level; j++) {
 				rotateIce(j, arr, N);
-			}		
-			result = meltingIce(arr, N);
-			
+			}
+			meltingIce(arr, N);
+
 		}
 		boolean visited[][] = new boolean[N][N];
 		for (int i = 0; i < N; i++) {
@@ -45,8 +45,19 @@ public class Sol_20058_BJ {
 				}
 			}
 		}
+		result = getTotal(arr, N);
 		System.out.println(result);
 		System.out.println(maxsize);
+	}
+
+	private static int getTotal(int[][] arr, int N) {
+		int result = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				result += arr[i][j];
+			}
+		}
+		return result;
 	}
 
 	private static void rotateIce(int level, int[][] arr, int N) {
@@ -99,8 +110,7 @@ public class Sol_20058_BJ {
 		}
 	}
 
-	private static int meltingIce(int[][] arr, int N) {
-		int result = 0;
+	private static void meltingIce(int[][] arr, int N) {
 		int newarr[][] = new int[N][N];
 		for (int i = 0; i < N; i++) {
 			newarr[i] = Arrays.copyOf(arr[i], N);
@@ -114,21 +124,16 @@ public class Sol_20058_BJ {
 				for (int k = 0; k < 4; k++) {
 					tx = j + dx[k];
 					ty = i + dy[k];
-					if (tx < 0 || ty < 0 || tx >= N || ty >= N || arr[ty][tx] < 1)
+					if (tx < 0 || ty < 0 || tx >= N || ty >= N || newarr[ty][tx] < 1)
 						continue;
 					cnt++;
 				}
 				if (cnt <= 2 && arr[i][j] > 0) {
-					newarr[i][j] = arr[i][j] - 1;
+					arr[i][j]--;
 				}
-				result += newarr[i][j];
 			}
 		}
 
-		for (int i = 0; i < N; i++) {
-			arr[i] = Arrays.copyOf(newarr[i], N);
-		}
-		return result;
 	}
 
 	private static int checkSize(int[][] arr, Queue<IceInfo> q, boolean[][] visited, int N) {
